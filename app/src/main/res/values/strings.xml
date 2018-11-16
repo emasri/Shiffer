@@ -2,5 +2,7 @@
     <string name="app_name">Shiffer</string>
     <string name="Signin">Sign in</string>
     <string name="NewUser">New User</string>
-    <string name="Email">Email</string>
+    <string name="Email"><font size="1"> Email</font></string>
+    <string name="Password"><font size="1"> Password</font></string>
+    <string name="ForgetPassword">Forget password?</string>
 </resources>
