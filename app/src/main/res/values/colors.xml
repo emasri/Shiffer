@@ -8,6 +8,13 @@
     <!--here is EditText Colors-->
     <color name="EditTextBackgroundColor">@android:color/transparent</color>
 
+    <!--App Color -->
+    <color name="GrayColorShiffer">#858584</color>
+    <color name="BlueColorShiffer">#3486BE</color>
+    <color name="GreenColorShiffer">#1DBD6D</color>
+    <color name="RedColorShiffer">#E55E5B</color>
+    <color name="LightBlueColorShiffer">#7CB3D1</color>
+
 
 
 </resources>
