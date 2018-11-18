@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <dimen name="CornerRadiusShiffer">5dp</dimen>
+    <dimen name="SegmentTextSize">16sp</dimen>
+    <dimen name="StartUpActivityButtonHeight">36dp</dimen>
+    <dimen name="BorderWidthShiffer">1dp</dimen>
+
+
+    />
+
+
+</resources>
