@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/BlueColorShiffer</item>
         <item name="colorPrimaryDark">@color/BlueColorShiffer</item>
         <item name="colorAccent">@android:color/black</item>
+
     </style>
 
 
@@ -34,6 +35,21 @@
 
 
         <item name="android:background">@drawable/edittextborder</item>
+
+
+
+
+    </style>
+
+    <!--herer the popups style -->
+    <style name="ShifferPopupsStyle" parent="AppTheme">
+<!--for gray background-->
+        <item name="android:windowIsFloating">true</item>
+
+<!--for transp background-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+
+        <item name="android:windowCloseOnTouchOutside">true</item>
 
 
 
