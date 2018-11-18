@@ -28,8 +28,8 @@
             android:layout_marginBottom="16dp"
             android:orientation="horizontal"
             android:weightSum="2"
-            segmentedgroup:sc_border_width="2dp"
-            segmentedgroup:sc_corner_radius="5dp"
+            segmentedgroup:sc_border_width="@dimen/BorderWidthShiffer"
+            segmentedgroup:sc_corner_radius="@dimen/CornerRadiusShiffer"
             segmentedgroup:sc_tint_color="@color/BlueColorShiffer">
 
             <RadioButton
@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:checked="true"
                 android:text="@string/Signin"
-                android:textSize="16sp" />
+                android:textSize="@dimen/SegmentTextSize" />
 
             <RadioButton
                 android:id="@+id/NewUserSegment"
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/NewUser"
-                android:textSize="16sp" />
+                android:textSize="@dimen/SegmentTextSize" />
 
 
         </info.hoang8f.android.segmented.SegmentedGroup>
@@ -74,16 +74,16 @@
         <Button
             style="@style/ButtonStartUpActivity"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="@dimen/StartUpActivityButtonHeight"
             android:layout_marginBottom="8dp"
-            android:background="@color/GreenColorShiffer"
+            android:background="@drawable/buttonborder"
             android:text="@string/Signin"
 
             />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="@dimen/StartUpActivityButtonHeight"
             android:background="@android:color/transparent"
             android:text="@string/ForgetPassword"
             android:textColor="@color/BlueColorShiffer" />
