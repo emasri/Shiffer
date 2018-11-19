@@ -92,27 +92,6 @@
             android:background="@android:color/transparent"
             android:text="@string/ForgetPassword"
             android:textColor="@color/BlueColorShiffer" />
-
-            android:inputType="textEmailAddress" />
-
-        <EditText
-            style="@style/EditTextStartUpActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/Password"
-            android:inputType="textPassword" />
-
-        <Button
-            style="@style/ButtonStartUpActivity"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/GreenColorShiffer"
-            android:text="@string/Signin"
-
-            />
-
         <Button
             android:layout_width="match_parent"
             android:layout_height="36dp"
@@ -120,6 +99,7 @@
             android:text="@string/ForgetPassword"
             android:textColor="@color/BlueColorShiffer" />
 
+    </LinearLayout>
 
     </LinearLayout>
 

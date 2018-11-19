@@ -18,7 +18,13 @@ public class ForgetPasswordPopup extends Activity {
         DisplayMetrics DisplayScreen = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(DisplayScreen);
 
+
+        getWindow().setLayout(
+                (int)(DisplayScreen.widthPixels*0.35)
+                ,(int)(DisplayScreen.heightPixels*0.25));
+
         getWindow().setLayout((int)(DisplayScreen.widthPixels*0.35),(int)(DisplayScreen.heightPixels*0.25));
+
 
     }
 }

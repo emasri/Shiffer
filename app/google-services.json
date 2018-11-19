@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "435971864815",
+    "firebase_url": "https://shifferdemo.firebaseio.com",
+    "project_id": "shifferdemo",
+    "storage_bucket": "shifferdemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435971864815:android:0c26cf546db63a1d",
+        "android_client_info": {
+          "package_name": "com.shiffer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435971864815-f4ph1ou059hehn45sa0893kro85p7sko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shiffer",
+            "certificate_hash": "76ee44c75ff9120056dd63c4d708cacbcd274460"
+          }
+        },
+        {
+          "client_id": "435971864815-7mpqnsid7r0umjt0fjjjkhrcfv59vmu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoYHQpWzNdAFqvJi27Nyhaa_yMe-Xm1Rc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435971864815-7mpqnsid7r0umjt0fjjjkhrcfv59vmu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
