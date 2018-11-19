@@ -24,7 +24,7 @@
         android:orientation="vertical">
 
         <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/segment"
+            android:id="@+id/StartUpActivtiSegments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -58,6 +58,7 @@
         </info.hoang8f.android.segmented.SegmentedGroup>
 
         <EditText
+            android:id="@+id/EmailEditText"
             style="@style/EditTextStartUpActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,6 +68,8 @@
             />
 
         <EditText
+            android:id="@+id/PasswordEditText"
+
             style="@style/EditTextStartUpActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,6 +78,7 @@
             android:inputType="textPassword" />
 
         <Button
+            android:id="@+id/GetAuthButton"
             style="@style/ButtonStartUpActivity"
             android:layout_width="match_parent"
             android:layout_height="@dimen/StartUpActivityButtonHeight"
@@ -90,8 +94,17 @@
             android:layout_height="@dimen/StartUpActivityButtonHeight"
             android:background="@android:color/transparent"
             android:text="@string/ForgetPassword"
-            android:textColor="@color/BlueColorShiffer" />
+            android:textColor="@color/BlueColorShiffer"
+            android:layout_marginBottom="36dp"
 
+            />
+
+        <Button
+            android:id="@+id/FaceBookLoginButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/StartUpActivityButtonHeight"
+            android:text="face"
+            android:textColor="@color/BlueColorShiffer" />
 
     </LinearLayout>
 
