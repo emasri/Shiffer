@@ -4,12 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.provider.CalendarContract;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.TextView;
 
 public class HelperMethods {
 
@@ -44,7 +40,7 @@ public class HelperMethods {
 
             } else {
 
-                Snackbar.make(CurrentActivity.findViewById(android.R.id.content), R.string.NoInternetSnackBars, Snackbar.LENGTH_SHORT);
+                Snackbar.make(CurrentActivity.findViewById(android.R.id.content), R.string.NoInternetSnackBar, Snackbar.LENGTH_SHORT).show();
 
                 return Connected;
 

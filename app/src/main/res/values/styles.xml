@@ -18,7 +18,7 @@
         <!-- Customize your EditText here. -->
         <item name="android:textColor">@android:color/black</item>
 
-        <item name="android:background">@drawable/edittextborder</item>
+        <item name="android:background">@drawable/edittextbordernormalcase</item>
 
         <item name="android:padding">4dp</item>
 
@@ -33,7 +33,7 @@
         <item name="android:textColor">@android:color/white</item>
 
 
-        <item name="android:background">@drawable/edittextborder</item>
+        <item name="android:background">@drawable/edittextbordernormalcase</item>
 
 
 
