@@ -21,6 +21,8 @@ import com.shiffer.R;
 public class ForgetPasswordPopup extends Activity {
     Context ActivityContext;
 
+    Activity CurrentActivtiy;
+
     EditText FogetPasswordEditText;
     FirebaseAuth FireBaseAuth;
     Button RestPasswrodButton;
@@ -28,7 +30,10 @@ public class ForgetPasswordPopup extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ActivityContext = this;
+
+        CurrentActivtiy = this;
 
         FireBaseAuth = FirebaseAuth.getInstance();
 
@@ -44,41 +49,52 @@ public class ForgetPasswordPopup extends Activity {
         RestPasswrodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (com.shiffer.HelperMethods.GetInstance(ActivityContext).CheckConnection()){
-                    FireBaseAuth.sendPasswordResetEmail(FogetPasswordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
+                if (com.shiffer.HelperMethods.GetInstance(ActivityContext).CheckConnection(CurrentActivtiy)) {
 
-                            if (task.isSuccessful()){
-
-
-                                Snackbar.make(findViewById(android.R.id.content),R.string.ResetPasswordEmailSentSnackBar,Snackbar.LENGTH_SHORT).show();
-
-
-
-                            }else {
-
-                                Toast EmailSentToast = Toast.makeText(ActivityContext, task.getException().toString(), Toast.LENGTH_LONG);
-                                EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
-                                EmailSentToast.show();
-
-
-                            }
-
-
-                        }
-                    });
-
-
-                }else{
-
-
+                    SendEmailPasswordLink();
                 }
             }
         });
 
+    }
+
+
+    void SendEmailPasswordLink() {
+
+        try {
+
+
+            FireBaseAuth.sendPasswordResetEmail(FogetPasswordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (task.isSuccessful()) {
+
+
+                        Snackbar.make(findViewById(android.R.id.content), R.string.ResetPasswordEmailSentSnackBar, Snackbar.LENGTH_SHORT).show();
+
+
+                    } else {
+
+                        Toast EmailSentToast = Toast.makeText(ActivityContext, task.getException().toString(), Toast.LENGTH_LONG);
+                        EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
+                        EmailSentToast.show();
+
+
+                    }
+
+
+                }
+            });
+
+
+        } catch (Exception Ex) {
+
+            System.out.println(Ex.getMessage());
+
         }
 
+    }
 
 
 }

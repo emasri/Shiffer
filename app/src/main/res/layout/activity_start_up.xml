@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/StartUpActivityButtonHeight"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/buttonborder"
+            android:background="@drawable/signinbuttonborder"
             android:text="@string/Signin"
 
             />
@@ -104,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/StartUpActivityButtonHeight"
             android:text="face"
-            android:textColor="@color/BlueColorShiffer" />
+            android:textColor="@color/BlueColorsShiffer" />
 
     </LinearLayout>
 

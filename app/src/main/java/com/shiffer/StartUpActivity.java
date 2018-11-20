@@ -1,5 +1,6 @@
 package com.shiffer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -32,6 +33,9 @@ public class StartUpActivity extends AppCompatActivity {
 
     Context ActivityContext;
 
+
+    Activity CurrentActivity;
+
     Button ForgetPasswordButton;
     Button GetAuthButton;
     Button FaceBookLoginButton;
@@ -53,8 +57,7 @@ public class StartUpActivity extends AppCompatActivity {
 
         ActivityContext = this;
 
-
-        final Drawable ButtonBorder = getResources().getDrawable(R.drawable.buttonborder);
+        CurrentActivity = this;
 
 
         GetAuthButton = findViewById(R.id.GetAuthButton);
@@ -95,10 +98,8 @@ public class StartUpActivity extends AppCompatActivity {
                         {
                             GetAuthButton.setText(getText(R.string.Signin));
 
-                            ButtonBorder.setColorFilter(new
-                                    PorterDuffColorFilter((ContextCompat.getColor(ActivityContext, R.color.GreenColorShiffer)), PorterDuff.Mode.MULTIPLY));
 
-                            GetAuthButton.setBackground(ButtonBorder);
+                            GetAuthButton.setBackground(getResources().getDrawable(R.drawable.signinbuttonborder));
 
                             IsLoginSegment = true;
 
@@ -108,10 +109,8 @@ public class StartUpActivity extends AppCompatActivity {
                         {
                             GetAuthButton.setText(getText(R.string.CreateAccount));
 
-                            ButtonBorder.setColorFilter(new
-                                    PorterDuffColorFilter((ContextCompat.getColor(ActivityContext, R.color.RedColorShiffer)), PorterDuff.Mode.MULTIPLY));
+                            GetAuthButton.setBackground(getResources().getDrawable(R.drawable.createaccountbuttonborder));
 
-                            GetAuthButton.setBackground(ButtonBorder);
 
                             IsLoginSegment = false;
                         }
@@ -136,92 +135,16 @@ public class StartUpActivity extends AppCompatActivity {
                 try {
 
 
-                    if (HelperMethods.GetInstance(ActivityContext).CheckConnection()) {
+                    if (HelperMethods.GetInstance(ActivityContext).CheckConnection(CurrentActivity)) {
 
                         if (IsLoginSegment) {
-                            FirebaseAuth.signInWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        if (FirebaseAuth.getCurrentUser().isEmailVerified()) {
 
-                                            //todo
-// move to inside the app
-//startActivity(new Intent(this,LogedInActivty.class));
-
-
-                                        }else {
-                                            Toast EmailSentToast = Toast.makeText(ActivityContext, getString(R.string.RequestVerifyingEmailToast), Toast.LENGTH_LONG);
-                                            EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
-                                            EmailSentToast.show();
-
-                                        }
-
-                                    } else {
-
-                                        Toast EmailSentToast = Toast.makeText(ActivityContext, task.getException().toString(), Toast.LENGTH_LONG);
-                                        EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
-                                        EmailSentToast.show();
-
-                                    }
-
-
-                                }
-                            });
+                            SignIn();
 
                         } else {
 
-                            FirebaseAuth.createUserWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                    if (task.isSuccessful()) {
-                                        Toast EmailSentToast = Toast.makeText(ActivityContext, getString(R.string.VerifyingEmailToast), Toast.LENGTH_LONG);
-                                        EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
-                                        EmailSentToast.show();
-
-                                        EmailEditText.setText("");
-                                        PasswordEditText.setText("");
-
-
-                                    } else {
-                                        try {
-                                            throw task.getException();
-
-                                        }
-                                        catch (FirebaseAuthUserCollisionException ExistEmail)
-                                        {
-                                            //does email exist Case
-                                            Snackbar.make(findViewById(android.R.id.content),R.string.ResetPasswordEmailSentSnackBar,Snackbar.LENGTH_SHORT)
-                                                    .setAction(R.string.LetsDoIt, new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View v) {
-
-                                                            //todo fill edittextwith signup detail and change the laye to sign details.
-
-
-
-                                                        }
-                                                    });
-
-
-                                        } catch (Exception Ex) {
-                                            Toast EmailSentToast = Toast.makeText(ActivityContext, Ex.toString(), Toast.LENGTH_LONG);
-                                            EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
-                                            EmailSentToast.show();                                        }
-
-
-                                    }
-
-                                }
-                            });
-
+                            CreateNewAccount();
                         }
-
-
-                    } else {
-
-
                     }
 
 
@@ -230,9 +153,116 @@ public class StartUpActivity extends AppCompatActivity {
                     System.out.println(Ex.getMessage());
 
                 }
+
+
             }
 
         });
 
     }
+
+    void SignIn() {
+        try {
+
+            FirebaseAuth.signInWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        if (FirebaseAuth.getCurrentUser().isEmailVerified()) {
+
+                            //todo
+// move to inside the app
+//startActivity(new Intent(this,LogedInActivty.class));
+
+
+                        } else {
+                            Toast EmailSentToast = Toast.makeText(ActivityContext, getString(R.string.RequestVerifyingEmailToast), Toast.LENGTH_LONG);
+                            EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
+                            EmailSentToast.show();
+
+                        }
+
+                    } else {
+
+                        Toast EmailSentToast = Toast.makeText(ActivityContext, task.getException().toString(), Toast.LENGTH_LONG);
+                        EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
+                        EmailSentToast.show();
+
+                    }
+
+
+                }
+            });
+
+
+        } catch (Exception Ex) {
+
+            System.out.println(Ex.getMessage());
+
+        }
+
+
+    }
+
+
+    void CreateNewAccount() {
+
+
+        try {
+
+            FirebaseAuth.createUserWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if (task.isSuccessful()) {
+                        Toast EmailSentToast = Toast.makeText(ActivityContext, getString(R.string.VerifyingEmailToast), Toast.LENGTH_LONG);
+                        EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
+                        EmailSentToast.show();
+
+                        EmailEditText.setText("");
+                        PasswordEditText.setText("");
+
+
+                    } else {
+                        try {
+                            throw task.getException();
+
+                        } catch (FirebaseAuthUserCollisionException ExistEmail) {
+                            //does email exist Case
+                            Snackbar.make(findViewById(android.R.id.content), R.string.ResetPasswordEmailSentSnackBar, Snackbar.LENGTH_SHORT)
+                                    .setAction(R.string.LetsDoIt, new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                            //todo fill edittextwith signup detail and change the laye to sign details.
+
+
+                                        }
+                                    });
+
+
+                        } catch (Exception Ex) {
+                            Toast EmailSentToast = Toast.makeText(ActivityContext, Ex.toString(), Toast.LENGTH_LONG);
+                            EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
+                            EmailSentToast.show();
+                        }
+
+
+                    }
+
+                }
+            });
+
+
+        } catch (Exception Ex) {
+
+            System.out.println(Ex.getMessage());
+
+        }
+
+    }
+
+
 }
+
+

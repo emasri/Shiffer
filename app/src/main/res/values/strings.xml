@@ -5,8 +5,8 @@
 
 
     <string name="NewUser">New User</string>
-    <string name="Email"><font size="1"> Email</font></string>
-    <string name="Password"><font size="1"> Password</font></string>
+    <string name="Email"><font size="16"> Email</font></string>
+    <string name="Password"><font size="16"> Password</font></string>
     <string name="ForgetPassword">Forget password?</string>
 
     <string name="AlreadyExistEmailSnackBar">This email is already in use try signing in</string>
@@ -22,6 +22,9 @@
         \n sign in..</string>
 
     <string name="ResetPasswordEmailSentSnackBar">Email sent.. check your inbox</string>
+
+
+    <string name="NoInternetSnackBars">No internet Connection!</string>
 
 
 
