@@ -166,7 +166,9 @@ public class StartUpActivity extends AppCompatActivity {
     void SignIn() {
         try {
 
-            FirebaseAuth.signInWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            FirebaseAuth.signInWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).
+                    addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -212,7 +214,9 @@ public class StartUpActivity extends AppCompatActivity {
 
         try {
 
-            FirebaseAuth.createUserWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            FirebaseAuth.createUserWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).
+                    addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -231,7 +235,8 @@ public class StartUpActivity extends AppCompatActivity {
 
                         } catch (FirebaseAuthUserCollisionException ExistEmail) {
                             //does email exist Case
-                            Snackbar.make(findViewById(android.R.id.content), R.string.ResetPasswordEmailSentSnackBar, Snackbar.LENGTH_SHORT)
+                            Snackbar.make(findViewById(android.R.id.content), R.string.ResetPasswordEmailSentSnackBar, Snackbar.LENGTH_LONG)
+
                                     .setAction(R.string.LetsDoIt, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -240,7 +245,8 @@ public class StartUpActivity extends AppCompatActivity {
 
 
                                         }
-                                    });
+                                    }).show();
+
 
 
                         } catch (Exception Ex) {
@@ -261,7 +267,6 @@ public class StartUpActivity extends AppCompatActivity {
             System.out.println(Ex.getMessage());
 
         }
-
 
     }
 

@@ -106,8 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/StartUpActivityButtonHeight"
             android:text="face"
-            android:textColor="@color/BlueColorsShiffer" />
-
+            android:textColor="@color/BlueColorShiffer" />
 
     </LinearLayout>
 
