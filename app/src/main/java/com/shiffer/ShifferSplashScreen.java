@@ -16,6 +16,8 @@ public class ShifferSplashScreen extends AppCompatActivity {
 
 
         try {
+            setTheme(R.style.ShifferSplashScreenStyle);
+
 
             super.onCreate(savedInstanceState);
 
