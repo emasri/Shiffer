@@ -11,16 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".StartUpActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ShifferSplashScreen"
+            android:theme="@style/ShifferSplashScreenStyle">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
 
         <activity android:name=".Popups.ForgetPasswordPopup"
             android:theme="@style/ShifferPopupsStyle">
 
         </activity>
+
 
 
 

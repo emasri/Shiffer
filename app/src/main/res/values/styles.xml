@@ -57,4 +57,10 @@
 
     </style>
 
+
+    <style name="ShifferSplashScreenStyle" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/shiffersplashscreen</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>
