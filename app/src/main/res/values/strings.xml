@@ -24,11 +24,15 @@
 
     <string name="NoInternetSnackBar">No internet Connection!</string>
     <string name="InvalidEmailSnackBar">Your email is badly.. check it again</string>
-    <string name="InvalidPasswordSnackBar">Password must be more than 6 characters</string>
+
+    <string name="WrongPasswordSnackBar">Wrong password!</string>
+
+    <string name="InvalidPasswordSnackBar">Password must be more than 6 characters and less than 36</string>
 
     <string name="NotFoundUserSnackBar">User not found or may have been deleted </string>
     <string name="NotFoundUserSnackBarButton">CREATE NEW USER NOW</string>
 
+    <string name="ExpiredTokenToast">Please Sign in again your token has expired</string>
 
 
 </resources>

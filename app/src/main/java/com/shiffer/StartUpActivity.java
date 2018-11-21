@@ -3,9 +3,6 @@ package com.shiffer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -23,12 +20,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.shiffer.Popups.ForgetPasswordPopup;
 
 public class StartUpActivity extends AppCompatActivity {
-
-    boolean IsLoginSegment = true;
 
 
     Context ActivityContext;
@@ -49,6 +47,7 @@ public class StartUpActivity extends AppCompatActivity {
     RadioButton NewUserSegment;
 
     FirebaseAuth FirebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +100,6 @@ public class StartUpActivity extends AppCompatActivity {
 
                             GetAuthButton.setBackground(getResources().getDrawable(R.drawable.signinbuttonborder));
 
-                            IsLoginSegment = true;
 
                         }
                         break;
@@ -112,7 +110,6 @@ public class StartUpActivity extends AppCompatActivity {
                             GetAuthButton.setBackground(getResources().getDrawable(R.drawable.createaccountbuttonborder));
 
 
-                            IsLoginSegment = false;
                         }
                         break;
                     }
@@ -135,9 +132,9 @@ public class StartUpActivity extends AppCompatActivity {
                 try {
 
 
-                    if (HelperMethods.GetInstance(ActivityContext).CheckConnection(CurrentActivity)) {
+                    if (CheckEditText() && HelperMethods.GetInstance(ActivityContext).CheckConnection(CurrentActivity)) {
 
-                        if (IsLoginSegment) {
+                        if (SignInSegment.isChecked()) {
 
                             SignIn();
 
@@ -163,37 +160,102 @@ public class StartUpActivity extends AppCompatActivity {
 
     void SignIn() {
         try {
+            //todo progressbar show
 
             FirebaseAuth.signInWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).
                     addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        if (FirebaseAuth.getCurrentUser().isEmailVerified()) {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            //todo
+                            //todo progressbar hide
+
+                            if (task.isSuccessful()) {
+                                if (FirebaseAuth.getCurrentUser().isEmailVerified()) {
+
+                                    //todo
 // move to inside the app
 //startActivity(new Intent(this,LogedInActivty.class));
 
 
-                        } else {
-                            Toast EmailSentToast = Toast.makeText(ActivityContext, getString(R.string.RequestVerifyingEmailToast), Toast.LENGTH_LONG);
-                            EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
-                            EmailSentToast.show();
+                                } else {
+                                    Toast EmailSentToast = Toast.makeText(ActivityContext, getString(R.string.RequestVerifyingEmailToast), Toast.LENGTH_LONG);
+                                    EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
+                                    EmailSentToast.show();
+
+                                }
+
+                            } else {
+
+
+                                try {
+
+                                    throw task.getException();
+
+                                } catch (FirebaseAuthInvalidCredentialsException Ex) {
+
+                                    switch (Ex.getErrorCode()) {
+
+                                        case "ERROR_WRONG_PASSWORD":
+                                            Snackbar.make(findViewById(android.R.id.content), R.string.WrongPasswordSnackBar, Snackbar.LENGTH_SHORT).show();
+
+                                            break;
+
+                                    }
+
+                                } catch (FirebaseAuthInvalidUserException Ex) {
+
+
+                                    switch (Ex.getErrorCode()) {
+
+
+                                        case "ERROR_USER_NOT_FOUND":
+                                            Snackbar.make(findViewById(android.R.id.content), R.string.NotFoundUserSnackBar, Snackbar.LENGTH_LONG)
+                                                    .setAction(R.string.NotFoundUserSnackBarButton, new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+
+                                                            SignInSegment.setChecked(false);
+                                                            NewUserSegment.setChecked(true);
+
+
+                                                            //initiate the button
+                                                            GetAuthButton.performClick();
+                                                            GetAuthButton.setPressed(true);
+                                                            GetAuthButton.invalidate();
+                                                            // delay completion till animation completes
+                                                            GetAuthButton.postDelayed(new Runnable() {  //delay button
+                                                                public void run() {
+                                                                    GetAuthButton.setPressed(false);
+                                                                    GetAuthButton.invalidate();
+                                                                    //any other associated action
+                                                                }
+                                                            }, 800);  // .8secs delay time
+
+                                                        }
+                                                    }).setActionTextColor(ContextCompat.getColor(CurrentActivity, R.color.GrayColorShiffer)).show();
+
+                                            break;
+
+
+
+
+                                    }
+
+
+                                } catch (Exception Ex) {
+
+
+                                    Toast EmailSentToast = Toast.makeText(ActivityContext, Ex.toString(), Toast.LENGTH_LONG);
+                                    EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
+                                    EmailSentToast.show();
+                                }
+
+
+                            }
+
 
                         }
-
-                    } else {
-
-                        Toast EmailSentToast = Toast.makeText(ActivityContext, task.getException().toString(), Toast.LENGTH_LONG);
-                        EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
-                        EmailSentToast.show();
-
-                    }
-
-
-                }
-            });
+                    });
 
 
         } catch (Exception Ex) {
@@ -210,50 +272,97 @@ public class StartUpActivity extends AppCompatActivity {
 
 
         try {
+            //todo progressbar show
 
             FirebaseAuth.createUserWithEmailAndPassword(EmailEditText.getText().toString(), PasswordEditText.getText().toString()).
                     addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                //todo progressbar hide
 
-                    if (task.isSuccessful()) {
-                        Toast EmailSentToast = Toast.makeText(ActivityContext, getString(R.string.VerifyingEmailToast), Toast.LENGTH_LONG);
-                        EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
-                        EmailSentToast.show();
+                                FirebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast EmailSentToast = Toast.makeText(ActivityContext, getString(R.string.VerifyingEmailToast), Toast.LENGTH_LONG);
+                                            EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
+                                            EmailSentToast.show();
 
-                        EmailEditText.setText("");
-                        PasswordEditText.setText("");
+
+                                            EmailEditText.setText("");
+                                            PasswordEditText.setText("");
 
 
-                    } else {
-                        try {
-                            throw task.getException();
+                                        } else {
+                                            try {
+                                                throw task.getException();
 
-                        } catch (FirebaseAuthUserCollisionException ExistEmail) {
-                            //does email exist Case
-                            Snackbar.make(findViewById(android.R.id.content), R.string.ResetPasswordEmailSentSnackBar, Snackbar.LENGTH_LONG)
-                                    .setAction(R.string.LetsDoIt, new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
+                                            } catch (FirebaseAuthUserCollisionException ExistEmail) {
 
-                                            //todo fill edittextwith signup detail and change the laye to sign details.
+                                                //does email exist Case
+                                                Snackbar.make(findViewById(android.R.id.content), R.string.AlreadyExistEmailSnackBar, Snackbar.LENGTH_LONG)
+                                                        .setAction(R.string.LetsDoIt, new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+
+
+                                                                SignInSegment.setChecked(true);
+                                                                NewUserSegment.setChecked(false);
+
+
+                                                                //initiate the button
+                                                                GetAuthButton.performClick();
+                                                                GetAuthButton.setPressed(true);
+                                                                GetAuthButton.invalidate();
+                                                                // delay completion till animation completes
+                                                                GetAuthButton.postDelayed(new Runnable() {  //delay button
+                                                                    public void run() {
+                                                                        GetAuthButton.setPressed(false);
+                                                                        GetAuthButton.invalidate();
+                                                                        //any other associated action
+                                                                    }
+                                                                }, 800);  // .8secs delay time
+
+
+                                                            }
+                                                        }).setActionTextColor(ContextCompat.getColor(CurrentActivity, R.color.GrayColorShiffer)).show();
+                                            } catch (FirebaseAuthWeakPasswordException Ex) {
+
+
+                                                Snackbar.make(findViewById(android.R.id.content), R.string.InvalidPasswordSnackBar, Snackbar.LENGTH_SHORT).show();
+
+
+                                            } catch (FirebaseAuthInvalidCredentialsException Ex) {
+
+
+                                                Snackbar.make(findViewById(android.R.id.content), R.string.InvalidEmailSnackBar, Snackbar.LENGTH_SHORT).show();
+
+
+                                            } catch (Exception Ex) {
+                                                Toast EmailSentToast = Toast.makeText(ActivityContext, Ex.toString(), Toast.LENGTH_LONG);
+                                                EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
+                                                EmailSentToast.show();
+                                            }
 
 
                                         }
-                                    }).show();
 
 
-                        } catch (Exception Ex) {
-                            Toast EmailSentToast = Toast.makeText(ActivityContext, Ex.toString(), Toast.LENGTH_LONG);
-                            EmailSentToast.setGravity(Gravity.CENTER, 0, 0);
-                            EmailSentToast.show();
+                                    }
+                                });
+
+
+                            }else {
+
+                                System.out.println(task.getException().getMessage());
+
+
+                            }
                         }
 
 
-                    }
-
-                }
-            });
+                    });
 
 
         } catch (Exception Ex) {
@@ -265,6 +374,52 @@ public class StartUpActivity extends AppCompatActivity {
     }
 
 
+    Boolean CheckEditText() {
+        try {
+            if (EmailEditText.getText().toString().isEmpty() && PasswordEditText.getText().toString().isEmpty()) {
+
+                EmailEditText.setBackground(getResources().getDrawable(R.drawable.edittextborderwarningcase));
+                PasswordEditText.setBackground(getResources().getDrawable(R.drawable.edittextborderwarningcase));
+
+                return false;
+
+
+            } else if (EmailEditText.getText().toString().isEmpty()) {
+
+                EmailEditText.setBackground(getResources().getDrawable(R.drawable.edittextborderwarningcase));
+
+                PasswordEditText.setBackground(getResources().getDrawable(R.drawable.edittextbordernormalcase));
+
+                return false;
+
+
+            } else if (PasswordEditText.getText().toString().isEmpty()) {
+
+                PasswordEditText.setBackground(getResources().getDrawable(R.drawable.edittextborderwarningcase));
+                EmailEditText.setBackground(getResources().getDrawable(R.drawable.edittextbordernormalcase));
+
+                return false;
+
+            } else {
+
+
+                EmailEditText.setBackground(getResources().getDrawable(R.drawable.edittextbordernormalcase));
+                PasswordEditText.setBackground(getResources().getDrawable(R.drawable.edittextbordernormalcase));
+
+                return true;
+            }
+        } catch (Exception Ex) {
+
+            System.out.println(Ex.getMessage());
+            return false;
+
+
+        }
+    }
 }
+
+
+
+
 
 
