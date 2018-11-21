@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthActionCodeException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+
 import com.google.firebase.auth.FirebaseUser;
 
 public class AppCycle extends Application {
@@ -27,6 +28,7 @@ public class AppCycle extends Application {
             startActivity(new Intent(AppCycle.this, StartUpActivity.class));
 
             EmailSentToast.show();
+
 
 
             System.console().writer().println(Ex);
@@ -53,3 +55,4 @@ public class AppCycle extends Application {
 //        ("ERROR_INVALID_USER_TOKEN", "The user\'s credential is no longer valid. The user must sign in again."));
 //        ("ERROR_OPERATION_NOT_ALLOWED", "This operation is not allowed. You must enable this service in the console."));
 //        ("ERROR_WEAK_PASSWORD", "The given password is invalid."));
+

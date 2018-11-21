@@ -12,6 +12,7 @@
     <string name="AlreadyExistEmailSnackBar">This email is already in use try signing in</string>
 
     <string name="VerifyingEmailToast">we\'ve just sent you a verification email .. please \n verify your email and come back to sign in.</string>
+
     <string name="LetsDoIt">Let\'s Do it</string>
 
     <string name="RequestVerifyingEmailToast">A verification email just sent
@@ -29,10 +30,12 @@
 
     <string name="InvalidPasswordSnackBar">Password must be more than 6 characters and less than 36</string>
 
+
     <string name="NotFoundUserSnackBar">User not found or may have been deleted </string>
     <string name="NotFoundUserSnackBarButton">CREATE NEW USER NOW</string>
 
     <string name="ExpiredTokenToast">Please Sign in again your token has expired</string>
+
 
 
 </resources>

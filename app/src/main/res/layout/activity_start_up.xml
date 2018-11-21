@@ -16,6 +16,7 @@
         android:scaleType="centerCrop"
         />
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -25,6 +26,7 @@
 
         <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
             android:id="@+id/StartUpActivtiSegments"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -105,6 +107,7 @@
             android:layout_height="@dimen/StartUpActivityButtonHeight"
             android:text="face"
             android:textColor="@color/BlueColorShiffer" />
+
 
     </LinearLayout>
 

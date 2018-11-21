@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
+
 public class HelperMethods {
 
 
@@ -42,6 +43,7 @@ public class HelperMethods {
 
                 Snackbar.make(CurrentActivity.findViewById(android.R.id.content), R.string.NoInternetSnackBar, Snackbar.LENGTH_SHORT).show();
 
+
                 return Connected;
 
             }
@@ -55,7 +57,6 @@ public class HelperMethods {
             return false;
         }
     }
-
 
 
 }

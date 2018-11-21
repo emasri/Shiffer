@@ -30,6 +30,7 @@ dependencies {
 // firebase core library
     implementation 'com.google.firebase:firebase-core:16.0.4'
 
+
     // the segment view library
     implementation 'info.hoang8f:android-segmented:1.0.6'
 

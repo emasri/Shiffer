@@ -3,6 +3,7 @@ package com.shiffer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -24,9 +25,11 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+
 import com.shiffer.Popups.ForgetPasswordPopup;
 
 public class StartUpActivity extends AppCompatActivity {
+
 
 
     Context ActivityContext;
@@ -101,6 +104,7 @@ public class StartUpActivity extends AppCompatActivity {
                             GetAuthButton.setBackground(getResources().getDrawable(R.drawable.signinbuttonborder));
 
 
+
                         }
                         break;
                         case R.id.NewUserSegment: // NewUserSegment
@@ -108,6 +112,7 @@ public class StartUpActivity extends AppCompatActivity {
                             GetAuthButton.setText(getText(R.string.CreateAccount));
 
                             GetAuthButton.setBackground(getResources().getDrawable(R.drawable.createaccountbuttonborder));
+
 
 
                         }
@@ -135,6 +140,7 @@ public class StartUpActivity extends AppCompatActivity {
                     if (CheckEditText() && HelperMethods.GetInstance(ActivityContext).CheckConnection(CurrentActivity)) {
 
                         if (SignInSegment.isChecked()) {
+
 
                             SignIn();
 
@@ -173,6 +179,7 @@ public class StartUpActivity extends AppCompatActivity {
                                 if (FirebaseAuth.getCurrentUser().isEmailVerified()) {
 
                                     //todo
+
 // move to inside the app
 //startActivity(new Intent(this,LogedInActivty.class));
 
@@ -256,6 +263,7 @@ public class StartUpActivity extends AppCompatActivity {
 
                         }
                     });
+
 
 
         } catch (Exception Ex) {
@@ -365,6 +373,7 @@ public class StartUpActivity extends AppCompatActivity {
                     });
 
 
+
         } catch (Exception Ex) {
 
             System.out.println(Ex.getMessage());
@@ -417,6 +426,7 @@ public class StartUpActivity extends AppCompatActivity {
         }
     }
 }
+
 
 
 
