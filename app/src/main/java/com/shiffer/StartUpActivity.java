@@ -237,8 +237,6 @@ public class StartUpActivity extends AppCompatActivity {
                                             break;
 
 
-
-
                                     }
 
 
@@ -292,41 +290,14 @@ public class StartUpActivity extends AppCompatActivity {
 
                                             EmailEditText.setText("");
                                             PasswordEditText.setText("");
+                                            //todo actuivity emad
 
 
                                         } else {
                                             try {
                                                 throw task.getException();
 
-                                            } catch (FirebaseAuthUserCollisionException ExistEmail) {
 
-                                                //does email exist Case
-                                                Snackbar.make(findViewById(android.R.id.content), R.string.AlreadyExistEmailSnackBar, Snackbar.LENGTH_LONG)
-                                                        .setAction(R.string.LetsDoIt, new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View v) {
-
-
-                                                                SignInSegment.setChecked(true);
-                                                                NewUserSegment.setChecked(false);
-
-
-                                                                //initiate the button
-                                                                GetAuthButton.performClick();
-                                                                GetAuthButton.setPressed(true);
-                                                                GetAuthButton.invalidate();
-                                                                // delay completion till animation completes
-                                                                GetAuthButton.postDelayed(new Runnable() {  //delay button
-                                                                    public void run() {
-                                                                        GetAuthButton.setPressed(false);
-                                                                        GetAuthButton.invalidate();
-                                                                        //any other associated action
-                                                                    }
-                                                                }, 800);  // .8secs delay time
-
-
-                                                            }
-                                                        }).setActionTextColor(ContextCompat.getColor(CurrentActivity, R.color.GrayColorShiffer)).show();
                                             } catch (FirebaseAuthWeakPasswordException Ex) {
 
 
@@ -353,17 +324,69 @@ public class StartUpActivity extends AppCompatActivity {
                                 });
 
 
-                            }else {
+                            } else {
+                                try {
 
-                                System.out.println(task.getException().getMessage());
+                                    throw task.getException();
+
+                                } catch (FirebaseAuthUserCollisionException ExistEmail) {
+
+                                    //does email exist Case
+                                    Snackbar.make(findViewById(android.R.id.content), R.string.AlreadyExistEmailSnackBar, Snackbar.LENGTH_LONG)
+                                            .setAction(R.string.LetsDoIt, new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+
+
+                                                    SignInSegment.setChecked(true);
+                                                    NewUserSegment.setChecked(false);
+
+
+                                                    //initiate the button
+                                                    GetAuthButton.performClick();
+                                                    GetAuthButton.setPressed(true);
+                                                    GetAuthButton.invalidate();
+                                                    // delay completion till animation completes
+                                                    GetAuthButton.postDelayed(new Runnable() {  //delay button
+                                                        public void run() {
+                                                            GetAuthButton.setPressed(false);
+                                                            GetAuthButton.invalidate();
+                                                            //any other associated action
+                                                        }
+                                                    }, 800);  // .8secs delay time
+
+
+                                                }
+                                            }).setActionTextColor(ContextCompat.getColor(CurrentActivity, R.color.GrayColorShiffer)).show();
+
+
+                                }
+                                catch (FirebaseAuthWeakPasswordException Ex) {
+
+
+                                    Snackbar.make(findViewById(android.R.id.content), R.string.InvalidPasswordSnackBar, Snackbar.LENGTH_SHORT).show();
+
+
+                                } catch (FirebaseAuthInvalidCredentialsException Ex) {
+
+
+                                    Snackbar.make(findViewById(android.R.id.content), R.string.InvalidEmailSnackBar, Snackbar.LENGTH_SHORT).show();
+
+
+                                }
+
+                                catch (Exception Ex) {
+
+                                    System.out.println(Ex.getMessage());
+
+                                }
 
 
                             }
+
+
                         }
-
-
                     });
-
 
         } catch (Exception Ex) {
 
@@ -372,7 +395,6 @@ public class StartUpActivity extends AppCompatActivity {
         }
 
     }
-
 
     Boolean CheckEditText() {
         try {
